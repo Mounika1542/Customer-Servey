@@ -6,10 +6,10 @@ const questions = [
     "What can we improve? (Text)"
 ];
 
-const responses = {};
+const responses = {}; // Store user answers keyed by question index
 let currentQuestion = 0;
 
-// DOM Elements
+// Get DOM elements
 const welcomeScreen = document.getElementById("welcome-screen");
 const surveyContainer = document.getElementById("survey-container");
 const questionText = document.getElementById("question");
@@ -17,7 +17,6 @@ const optionsDiv = document.getElementById("options");
 const progressText = document.getElementById("progress");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
-const messageBox = document.getElementById("message");
 
 // Start Survey
 document.getElementById("startBtn").onclick = () => {
@@ -26,9 +25,8 @@ document.getElementById("startBtn").onclick = () => {
     loadQuestion();
 };
 
-// Previous button
-prevBtn.onclick = (e) => {
-    e.preventDefault();
+// Previous Question
+prevBtn.onclick = () => {
     saveCurrentResponse();
     if (currentQuestion > 0) {
         currentQuestion--;
@@ -36,13 +34,12 @@ prevBtn.onclick = (e) => {
     }
 };
 
-// Next/Submit button
-nextBtn.onclick = (e) => {
-    e.preventDefault();
+// Next or Submit
+nextBtn.onclick = () => {
     saveCurrentResponse();
 
     if (currentQuestion < questions.length - 1 && responses[currentQuestion] === undefined) {
-        showMessage("Please select an option before proceeding.", "error");
+        alert("Please select an option before proceeding.");
         return;
     }
 
@@ -50,7 +47,9 @@ nextBtn.onclick = (e) => {
         currentQuestion++;
         loadQuestion();
     } else {
-        // Submit
+        // Submit responses
+        console.log("Submitting survey responses:", responses);
+
         const formData = new URLSearchParams();
         questions.forEach((q, i) => {
             formData.append(`q${i + 1}`, responses[i] ?? '');
@@ -65,8 +64,8 @@ nextBtn.onclick = (e) => {
         })
         .then(res => {
             if (!res.ok) {
-                return res.text().then(text => {
-                    throw new Error(`HTTP error! status: ${res.status}, Message: ${text}`);
+                return res.text().then(text => { 
+                    throw new Error(`HTTP error! status: ${res.status}, Message: ${text}`); 
                 });
             }
             return res.text();
@@ -75,13 +74,13 @@ nextBtn.onclick = (e) => {
             document.body.innerHTML = html;
         })
         .catch(err => {
-            showMessage("Submission failed. Please try again.", "error");
+            alert("Submission failed. Please try again.");
             console.error("Submission error:", err);
         });
     }
 };
 
-// Save current input
+// Save current response
 function saveCurrentResponse() {
     if (currentQuestion === questions.length - 1) {
         const textInput = optionsDiv.querySelector("textarea");
@@ -91,10 +90,8 @@ function saveCurrentResponse() {
     }
 }
 
-// Load a question
+// Load question and options
 function loadQuestion() {
-    clearMessage();
-
     questionText.innerText = questions[currentQuestion];
     progressText.innerText = `Question ${currentQuestion + 1} of ${questions.length}`;
     optionsDiv.innerHTML = "";
@@ -128,21 +125,5 @@ function loadQuestion() {
             };
             optionsDiv.appendChild(btn);
         }
-    }
-}
-
-// Show in-page message
-function showMessage(text, type) {
-    if (!messageBox) return;
-    messageBox.innerText = text;
-    messageBox.style.color = type === "error" ? "red" : "green";
-    messageBox.style.display = "block";
-}
-
-// Clear message
-function clearMessage() {
-    if (messageBox) {
-        messageBox.innerText = "";
-        messageBox.style.display = "none";
     }
 }
