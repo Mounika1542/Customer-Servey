@@ -6,10 +6,10 @@ const questions = [
     "What can we improve? (Text)"
 ];
 
-const responses = {}; // Store user answers keyed by question index
+const responses = {};
 let currentQuestion = 0;
 
-// Get DOM elements
+// DOM Elements
 const welcomeScreen = document.getElementById("welcome-screen");
 const surveyContainer = document.getElementById("survey-container");
 const questionText = document.getElementById("question");
@@ -17,6 +17,7 @@ const optionsDiv = document.getElementById("options");
 const progressText = document.getElementById("progress");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
+const messageBox = document.getElementById("message"); // Message area for errors/success
 
 // Start Survey
 document.getElementById("startBtn").onclick = () => {
@@ -25,7 +26,7 @@ document.getElementById("startBtn").onclick = () => {
     loadQuestion();
 };
 
-// Previous Question
+// Previous
 prevBtn.onclick = () => {
     saveCurrentResponse();
     if (currentQuestion > 0) {
@@ -34,12 +35,12 @@ prevBtn.onclick = () => {
     }
 };
 
-// Next or Submit
+// Next/Submit
 nextBtn.onclick = () => {
     saveCurrentResponse();
 
     if (currentQuestion < questions.length - 1 && responses[currentQuestion] === undefined) {
-        alert("Please select an option before proceeding.");
+        showMessage("Please select an option before proceeding.", "error");
         return;
     }
 
@@ -47,9 +48,7 @@ nextBtn.onclick = () => {
         currentQuestion++;
         loadQuestion();
     } else {
-        // Submit responses
-        console.log("Submitting survey responses:", responses);
-
+        // Submit
         const formData = new URLSearchParams();
         questions.forEach((q, i) => {
             formData.append(`q${i + 1}`, responses[i] ?? '');
@@ -74,13 +73,13 @@ nextBtn.onclick = () => {
             document.body.innerHTML = html;
         })
         .catch(err => {
-            alert("Submission failed. Please try again.");
+            showMessage("Submission failed. Please try again.", "error");
             console.error("Submission error:", err);
         });
     }
 };
 
-// Save current response
+// Save current input
 function saveCurrentResponse() {
     if (currentQuestion === questions.length - 1) {
         const textInput = optionsDiv.querySelector("textarea");
@@ -90,8 +89,10 @@ function saveCurrentResponse() {
     }
 }
 
-// Load question and options
+// Load a question
 function loadQuestion() {
+    clearMessage();
+
     questionText.innerText = questions[currentQuestion];
     progressText.innerText = `Question ${currentQuestion + 1} of ${questions.length}`;
     optionsDiv.innerHTML = "";
@@ -125,5 +126,21 @@ function loadQuestion() {
             };
             optionsDiv.appendChild(btn);
         }
+    }
+}
+
+// Show in-page message
+function showMessage(text, type) {
+    if (!messageBox) return;
+    messageBox.innerText = text;
+    messageBox.style.color = type === "error" ? "red" : "green";
+    messageBox.style.display = "block";
+}
+
+// Clear message
+function clearMessage() {
+    if (messageBox) {
+        messageBox.innerText = "";
+        messageBox.style.display = "none";
     }
 }
