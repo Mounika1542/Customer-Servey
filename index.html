@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Survey</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="welcome-screen">
+        <h1>Welcome to Customer Survey</h1>
+        <button id="startBtn">Start Survey</button>
+    </div>
+
+    <div id="survey-container" style="display:none;">
+        <div class="survey-box">
+            <h2>Customer Survey</h2>
+            <p id="progress">1/5</p>
+            <p id="question"></p>
+            <div id="options"></div>
+            <div class="nav-buttons">
+                <button id="prevBtn">Prev</button>
+                <button id="nextBtn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="javascript/script.js"></script>
+</body>
+</html>
