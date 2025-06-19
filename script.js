@@ -104,7 +104,7 @@ function loadQuestion() {
         textarea.rows = 6;
         textarea.cols = 40;
         textarea.placeholder = "Type your suggestions or comments here...";
-        textarea.value = responses[currentQuestion] || "";
+        textarea.value = responses[currentQuestion] || ""; 
         textarea.oninput = (e) => {
             responses[currentQuestion] = e.target.value;
         };
