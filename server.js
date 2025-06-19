@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require('express'); //we install express using nodejs and express and install node express body parser()
 const bodyParser = require('body-parser'); //here we have a bodyparser a module and require use to  all methods in files
 const fs = require('fs'); //filepath
@@ -19,6 +20,21 @@ app.post('/submit', (req, res) => { // when last submit pwe use reponse sheet li
   const data = req.body;
   const filePath = path.join(__dirname, 'responses.json');
   let all = [];
+=======
+const express = require('express');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
+
+const app = express();
+app.use(express.static(path.join(__dirname, 'html')));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.post('/submit', (req, res) => {
+  const data = req.body;
+  let all = [];
+  const filePath = path.join(__dirname, 'responses.json');
+>>>>>>> 2d14caf1eadc4884274d82b32a25f98c01b0f901
 
   if (fs.existsSync(filePath)) {
     all = JSON.parse(fs.readFileSync(filePath));
@@ -26,6 +42,7 @@ app.post('/submit', (req, res) => { // when last submit pwe use reponse sheet li
 
   all.push(data);
   fs.writeFileSync(filePath, JSON.stringify(all, null, 2));
+<<<<<<< HEAD
 
   res.send(`
     <h2> Thank you for your feedback!</h2>
@@ -39,6 +56,9 @@ app.post('/submit', (req, res) => { // when last submit pwe use reponse sheet li
 // Save the updated array back to the file in JSON format
 //  Send a thank-you message back to the browser
 
+=======
+  res.send('<h2>Thank you! Your response is saved.</h2><a href="/">Back to Home</a>');
+>>>>>>> 2d14caf1eadc4884274d82b32a25f98c01b0f901
 });
 
 app.listen(3000, () => console.log(" Server running at http://localhost:3000"));

@@ -1,4 +1,5 @@
 body {
+<<<<<<< HEAD
   font-family: Arial, sans-serif;
   background-color: lightblue;
   text-align: center;
@@ -62,3 +63,68 @@ body {
   border: none;
   border-radius: 10px;
 }
+=======
+    font-family: Arial, sans-serif;
+    background-color: lightblue;
+    text-align: center;
+}
+
+#welcome-screen {
+    margin-top: 50px;
+}
+
+#welcome-screen button {
+    background-color: green;
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+}
+
+.survey-box {
+    margin: 50px auto;
+    padding: 20px;
+    width: 300px;
+    background-color: #b0c4de;
+    border-radius: 20px;
+}
+
+.rating-button {
+    display: inline-block;
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.rating-button.selected {
+    background-color: red;
+    color: white;
+}
+
+.nav-buttons {
+    margin-top: 20px;
+}
+
+#prevBtn {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+}
+
+#nextBtn {
+    background-color: hotpink;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+}
+>>>>>>> 2d14caf1eadc4884274d82b32a25f98c01b0f901
