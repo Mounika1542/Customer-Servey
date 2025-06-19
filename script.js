@@ -17,7 +17,7 @@ const optionsDiv = document.getElementById("options");
 const progressText = document.getElementById("progress");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
-const messageBox = document.getElementById("message"); // Message area for errors/success
+const messageBox = document.getElementById("message");
 
 // Start Survey
 document.getElementById("startBtn").onclick = () => {
@@ -26,8 +26,9 @@ document.getElementById("startBtn").onclick = () => {
     loadQuestion();
 };
 
-// Previous
-prevBtn.onclick = () => {
+// Previous button
+prevBtn.onclick = (e) => {
+    e.preventDefault();
     saveCurrentResponse();
     if (currentQuestion > 0) {
         currentQuestion--;
@@ -35,8 +36,9 @@ prevBtn.onclick = () => {
     }
 };
 
-// Next/Submit
-nextBtn.onclick = () => {
+// Next/Submit button
+nextBtn.onclick = (e) => {
+    e.preventDefault();
     saveCurrentResponse();
 
     if (currentQuestion < questions.length - 1 && responses[currentQuestion] === undefined) {
@@ -63,8 +65,8 @@ nextBtn.onclick = () => {
         })
         .then(res => {
             if (!res.ok) {
-                return res.text().then(text => { 
-                    throw new Error(`HTTP error! status: ${res.status}, Message: ${text}`); 
+                return res.text().then(text => {
+                    throw new Error(`HTTP error! status: ${res.status}, Message: ${text}`);
                 });
             }
             return res.text();
