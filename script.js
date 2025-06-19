@@ -33,15 +33,13 @@ document.getElementById("nextBtn").onclick = () => {
         currentQuestion++;
         loadQuestion();
     } else {
-        // Submit
-        fetch("/submit", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-           body: new URLSearchParams(responses.map((ans, i) => [`q${i + 1}`, ans]))
-
-        })
-        .then(res => res.text())
-        .then(html => document.body.innerHTML = html);
+        // Show thank you message instead of submitting
+        document.body.innerHTML = `
+            <div style="text-align:center; padding: 50px;">
+                <h1>Thank you for completing the survey!</h1>
+                <p>Your responses have been recorded.</p>
+            </div>
+        `;
     }
 };
 
@@ -54,6 +52,8 @@ function loadQuestion() {
         const input = document.createElement("textarea");
         input.rows = 4;
         input.cols = 30;
+        input.placeholder = "Type your answer here...";
+        input.value = responses[currentQuestion] || "";
         input.oninput = e => responses[currentQuestion] = e.target.value;
         optionsDiv.appendChild(input);
     } else {
