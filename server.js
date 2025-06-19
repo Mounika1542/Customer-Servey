@@ -18,7 +18,7 @@ app.post('/submit', (req, res) => {
 
   all.push(data);
   fs.writeFileSync(filePath, JSON.stringify(all, null, 2));
-  res.send('<h2>✅ Thank you! Your response is saved.</h2><a href="/">Back to Home</a>');
+  res.send('<h2>Thank you! Your response is saved.</h2><a href="/">Back to Home</a>');
 });
 
-app.listen(3000, () => console.log("✅ Server running at http://localhost:3000"));
+app.listen(3000, () => console.log(" Server running at http://localhost:3000"));
