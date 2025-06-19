@@ -37,7 +37,8 @@ document.getElementById("nextBtn").onclick = () => {
         fetch("/submit", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(responses.map((ans, i) => [`q${i + 1}`, ans]))
+           body: new URLSearchParams(responses.map((ans, i) => [`q${i + 1}`, ans]))
+
         })
         .then(res => res.text())
         .then(html => document.body.innerHTML = html);
