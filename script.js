@@ -54,14 +54,15 @@ nextBtn.onclick = () => {
         questions.forEach((q, i) => {
             formData.append(`q${i + 1}`, responses[i] ?? '');
         });
-
         fetch("/submit", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: formData.toString()
-        })
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: formData.toString()
+})
+
+
         .then(res => {
             if (!res.ok) {
                 return res.text().then(text => { 
