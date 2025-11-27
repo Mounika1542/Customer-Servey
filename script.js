@@ -5,7 +5,7 @@ const questions = [
     "On a scale of 1–5, how likely are you to recommend us?",
     "What can we improve? (Text)"
 ];
-
+// starting the code in various of questions
 const responses = {}; // Store user answers keyed by question index
 let currentQuestion = 0;
 
